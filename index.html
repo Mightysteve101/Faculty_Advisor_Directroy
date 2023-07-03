@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduate Prebuilt Layout</title>
+    
+    <!--Bootstrap-->
+        <!-- Bootstrap -->
+	<link href="https://www.enmu.edu/templates/edulif/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/templates/edulif/css/custom.css" rel="stylesheet" />
+	<script src= "https://www.enmu.edu/media/vendor/jquery/js/jquery.min.js?3.6.0"></script>
+	<script src="https://www.enmu.edu/templates/edulif/js/bootstrap.bundle.min.js"></script>
+
+    <!--Custom Layout-->
+    <link rel="stylesheet" href="index-style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="Eastern_New_Mexico_University_seal.svg.png" height="250px" width="250" alt="doggo" style="float: left; margin-right: 15px">
+      </div>
+      <div class="col-sm-6">
+        <p><strong>Name: </strong> Isaac Evans</p>
+        <p><strong>Title: </strong> Computer Science</p>
+        <p><strong>Office: </strong> ADM 218</p>
+        <p><strong>Phone: </strong> 575.562.2294</p>
+        <p><strong>Email: </strong><a href="mailto:isaac.evans@enmu.edu">isaac.evans@enmu.edu</a></p>
+    
+        <!--This is where the modal will start-->
+        <!-- Button trigger modal -->
+    <button type="button" class="readon" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Faculty Bio
+      </button>
+      </div>
+  </div>
+
+  <!--Use bootstrap to make the picture and description half and half-->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl"> <!--modal-dialog-centered--><!--May want to center-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row align-items-top">
+                <div class="col-sm-12 col-md-4">
+                  <img src="Eastern_New_Mexico_University_seal.svg.png" alt="doggo" height="200" width="200"/>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                  <h3>Isaac Evans</h3>
+                  <p class="description-modal"><strong>Title:</strong> Web Assistant</p>
+                  <p class="description-modal"><strong>Office Location:</strong> Computer Department</p>
+                    <p class="description-modal"><strong>Phone:</strong> 575-123-12374</p>
+                    <strong>Email: </strong><a href="mailto:isaac.evanz.com">isaac.evanz.com</a>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <h3>Education</h3>
+                      <p class = "p-modal">
+                          D.M.A., Trumpet Performance and Literature, University of Illinois(2012)
+                      </p>
+                      <p class = "p-modal">
+                          D.M.A., Trumpet Performance and Literature, University of Illinois(2012)
+                      </p>
+                      <p class = "p-modal">
+                          D.M.A., Trumpet Performance and Literature, University of Illinois(2012)
+                      </p>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 md-4">
+                    <h3>Bio</h3>
+                      <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra orci sagittis eu volutpat odio facilisis mauris sit. Augue eget arcu dictum varius duis. Tellus pellentesque eu tincidunt tortor aliquam. Eget lorem dolor sed viverra ipsum. Libero nunc consequat interdum varius sit amet mattis vulputate. Duis convallis convallis tellus id interdum velit. Aenean et tortor at risus viverra adipiscing. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Vitae elementum curabitur vitae nunc sed velit dignissim. Elit duis tristique sollicitudin nibh. Sed enim ut sem viverra aliquet eget sit. Phasellus vestibulum lorem sed risus. In arcu cursus euismod quis viverra nibh cras. Morbi tristique senectus et netus. Ut sem viverra aliquet eget sit amet tellus. Elementum tempus egestas sed sed risus pretium quam vulputate dignissim.
+                      </p>
+                    <h3>Research Interest</h3>
+                      <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus. Aliquam faucibus purus in massa. Nunc vel risus commodo viverra maecenas accumsan lacus vel.
+                      </p>
+                  </div>
+                </div>
+              </div>
+              <!--End of Modal Body-->
+              <!--Modal Footer-->
+              <div class="modal-footer">
+                <button type="button" class="readon" data-bs-dismiss="modal">Close</button>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
