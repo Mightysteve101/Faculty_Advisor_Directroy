@@ -64,91 +64,169 @@ class NameEmailTitleOfficeAndPhoneModel {
     }
 }
 
-    echo 'class="row"';
-    echo '<div class = "col-sm-6">';
-    echo '<input type="image" src="' . $image . 'alt =' . $firstName . $lastName .'height="200" width="200" class="dir-readon" data-bs-toggle="modal" data-bs-target="#exampleModal">';
-    echo '</div>';
-    echo '<div class="col-sm-6">';
-    echo '<p><strong>Name:</strong>' . $firstName . $lastName . '</p>';
-    echo '<p><strong>Title:</strong>' . $jobTitle . '</p>';
-    echo '<p><strong>Office:</strong>' . $buildingCode . $roomNumber . '</p>';
-    echo '<p><strong>Phone:</strong>' . $phoneNumber . '<p>';
-    echo '<p><strong>Email:</strong> <a href="' . $email . '"' . $email . '</a></p>';
-    echo '<button type="button" class="readon" data-bs-toggle="modal">data-bs-target="#exampleModal"> Faculty Bio </button>';
-    echo '</div>';
-    echo '</div>';
+class NameEmailTitleOfficeAndPhoneView {
+    public function __construct($model) {
+        $this->model = $model;
+    }
 
-    /*Modal*/
+    public function build() {
+        $prefix = $this->model->prefix;
+        $firstName = $this->model->firstName;
+        $lastName = $this->model->lastName;
+        $email = $this->model->email;
+        $jobTitle = $this->model->jobTitle;
+        $phoneNumber = $this->model->phoneNumber;
+        $tagName = $this->model->tagName;
+        $suffix = $this->model->suffix;
+        $person = $this->model->person;
+        $buildingFull = $this->model->buildingFull;
+        $buildingCode = $this->model->buildingCode;
+        $roomNumber = $this->model->roomNumber;
+        $image = $this->model->image;
+        $biography = $this->model->biography;
+        $education = $this->model->education;
+        $researchInterests = $this->model->researchInterests;
+        $html = "";
 
-    echo '<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">';
-    echo '<div class="modal-dialog modal-xl">';
-    echo '<div class="modal-content">';
-    echo '<div class="modal-header">';
-    echo '<h1 class="modal-title" id="exampleModalLabel"><h1>';
-    echo '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>';
-    echo '</div>';
+        $name = "";
+        if (strcmp($prefix, 'Dr.') == 0 && strpos($suffix, 'Ph.D.') === false)
+            $name .= $prefix . ' ';
+        $name .= $firstName . ' ' . $lastName;
+        if (strlen($suffix) > 0)
+            $name .= ', ' . $suffix;
+        if (strlen($email) > 0)
+            $email = "<a href='mailto:$email'><strong>$name</strong></a>";
 
-    /* Modal Body */
+        $jobTitle = "<br />$jobTitle";
 
-    echo '<div class="modal-body">';
-    echo '<div class="row align-items-top">';
-    echo '<div class="col-sm-12 col-md-4">';
-    echo '<img src="' . $image . '" alt="doggo" height="200" width="200"/>';
-    echo '</div>';
-    echo '<div class="col-sm-12 col-md-4">';
-    echo '<h3>' . $firstName . $lastName . '</h3>';
-    echo '<p class="description-modal"><strong>Title:</strong>' . $jobTitle . '</p>';
-    echo '<p class="description-modal"><strong>Office Location:</strong>' . $buildingCode . $roomNumber . '</p>';
-    echo '<p class="description-modal"><strong>Phone:</strong>' . $phoneNumber / '</p>';
-    echo '<strong>Email: </strong><a href="mailto: ' . $email . '"> ' . $email . '</a>';
-    echo '</div>';
-    echo '<div class="col-sm-12 col-md-4">';
-  
-    /* For Education Creates and array of characters everytime there is a line break then prints them */
-    if (strlen($row['pwbcdir_education']) > 0){
-        echo '<h3>Education</h3>';
-        $educationArray = explode("\n", $row['pwbcdir_education']);
-        foreach ($educationArray as $item) {
-            /*if statement here checks if the line item within the array is not blank, and will post the paragraph if it is not */
-            if (strlen($item) > 0){
-            echo '<p class="p-modal">' . $item . '</p>';}
+        if (strlen($buildingCode) > 0) 
+            $building = "<br />Office Location: $buildingFull ($buildingCode), Room $roomNumber";
+
+        if ($phoneNumber > 0) 
+            $phone = "<br />Phone: 575.562.$phoneNumber";
+
+
+        /**** Variables ****/
+
+        $fullImage = "<input type=\"image\" src=\"$image\" alt=\"$firstName\" height=\"200\" width=\"200\" class=\"dir-readon\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">
+        </div>";
+        $fullName = $firstName . " " . $lastName;
+        $modalName = "<p><strong>Name: </strong>$fullName</p>";
+        $modalTitle = "<p><strong>Title: </strong>$jobTitle</p>";
+        $modalPhone = "<p><strong>Phone: </strong>$phoneNumber</p>";
+        $modalEmail = "<p><strong>Email: </strong>$email</p>";
+        $descriptionJobTitle = "<p class=\"description-modal\"><strong>Title:</strong>$jobTitle</p>";
+        $descriptionOffice = "<strong>Office Location:</strong>$buildingFull ($buildingCode), Room $roomNumber";
+        $descriptionPhone = "<p class=\"description-modal\"><strong>Phone:</strong> $phoneNumber</p>";
+         
+        /**** Functions ****/
+
+        /*Education */
+        function descriptionEducation() {
+            /* Creates and array of characters everytime there is a line break then prints them */
+            if (strlen($row['pwbcdir_education']) > 0){
+                echo '<h3>Education</h3>';
+                $educationArray = explode("\n", $row['pwbcdir_education']);
+                foreach ($educationArray as $item) {
+                    /*if statement here checks if the line item within the array is not blank, and will post the paragraph if it is not */
+                    if (strlen($item) > 0){
+                    echo '<p class="p-modal">' . $item . '</p>';}
+                }
+            }
+        }
+        
+        /*Biography */
+        function descriptionBio(){
+            if (strlen($row['pwbcdir_biography']) > 0) {
+                echo '<h3>Bio</h3>';
+                $bioArray = explode("\n", $row['pwbcdir_biography']);
+                foreach ($bioArray as $item) {
+                    if (strlen($item) > 0){
+                    echo '<p>' . $item . '</p>';}
+                }
+            }  
+        }
+
+        /*Research Interest*/
+        function descriptionResearch(){
+            if (strlen($row['pwbcdir_research_interests']) > 0) {
+                echo '<h3>Research Interests</h3>';
+                $researchInterestsArray = explode("\n", $row['pwbcdir_research_interests']);
+                foreach ($researchInterestsArray as $item) {
+                    if (strlen($item) > 0){
+                    echo '<p>' . $item . '</p>';}
+                }
             }
         }
 
-        echo '</div>';
-        echo '<div class="row">';
-        echo '<div class="col-sm-12 md-4">';
+        /**** HTML ****/
 
-        /*Bio*/
-        if (strlen($row['pwbcdir_biography']) > 0) {
-            echo '<h3>Bio</h3>';
-            $bioArray = explode("\n", $row['pwbcdir_biography']);
-            foreach ($bioArray as $item) {
-                if (strlen($item) > 0){
-                echo '<p>' . $item . '</p>';}
-            }
-        }
+        $html = "
+            <div class=\"container\">
+                <div class=\"row\">
+                    <div class=\"col-sm-6\">
+                        $fullImage
+                        <div class=\"col-sm-6\">
+                        $modalName
+                        $modalTitle
+                        <p>$descriptionOffice</p>
+                        $modalPhone
+                        $modalEmail
+                        <button type=\"button\" class=\"readon\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">
+                        Faculty Bio 
+                        </button>
+                    </div>
+                </div>
 
-        /*Research Interest */
-        if (strlen($row['pwbcdir_research_interests']) > 0) {
-            echo '<h3>Research Interests</h3>';
-            $researchInterestsArray = explode("\n", $row['pwbcdir_research_interests']);
-            foreach ($researchInterestsArray as $item) {
-                if (strlen($item) > 0){
-                echo '<p>' . $item . '</p>';}
-            }
-        }
 
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-        /*End of Modal Body */
-        echo '<div class="modal-footer">';
-        echo '<button type="button" class="readon" data-bs-dismiss="modal">Close</button>';
-        echo '</div>';
-        /* End of modal */
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
+            <!--Modal-->
+            <div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+                <div class=\"modal-dialog modal-xl\">
+                    <div class=\"modal-content\">
+                        <div class=\"modal-header\">
+                        <h1 class=\"modal-title fs-5\" id=\"exampleModalLabel\">$fullName</h1>
+                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                    </div>
+
+                        <!--Modal Body-->
+                        <div class=\"modal-body\">
+                            <div class=\"row align-items-top\">
+                                <div class=\"col-sm-12 col-md-4\">
+                                    $fullImage
+                                    </div>
+                                    <div class=\"col-sm-12 col-md-4\">
+                                    <h3>$fullName</h3>
+                                    $descriptionJobTitle
+                                    <p class=\"description-modal\">$descriptionOffice</p>
+                                    $descriptionPhone
+                                    $modalEmail
+                                </div>
+                                <div class=\"col-sm-12 col-md-4\">
+                                <h3>Education</h3>
+                                <p class = \"p-modal\">"
+                                . descriptionEducation() . 
+                                
+                                "</div>
+                                <div class=\"row\">
+                                    <div class=\"col-sm-12 md-4\">
+                                        <h3>Bio</h3>
+                                        " . descriptionBio() . "
+                                        <h3>Research Interest</h3>
+                                        " . descriptionResearch() . "
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Modal Footer-->
+                            <div class=\"modal-footer\">
+                            <button type=\"button\" class=\"readon\" data-bs-dismiss=\"modal\">Close</button>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    
+                    ";
+        return $html;
+    }
+}
 ?>
