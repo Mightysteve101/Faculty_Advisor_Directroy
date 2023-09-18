@@ -1,1 +1,1 @@
-# Faculty_Advisor_Directroy
+# Faculty_Advisor_Directory
